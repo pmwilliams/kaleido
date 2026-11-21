@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/kaleido/static/css/main.bad80441.css",
-    "main.js": "/kaleido/static/js/main.e59bac60.js",
+    "main.js": "/kaleido/static/js/main.d607522a.js",
     "static/js/453.99944efe.chunk.js": "/kaleido/static/js/453.99944efe.chunk.js",
     "index.html": "/kaleido/index.html",
     "main.bad80441.css.map": "/kaleido/static/css/main.bad80441.css.map",
-    "main.e59bac60.js.map": "/kaleido/static/js/main.e59bac60.js.map",
+    "main.d607522a.js.map": "/kaleido/static/js/main.d607522a.js.map",
     "453.99944efe.chunk.js.map": "/kaleido/static/js/453.99944efe.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.bad80441.css",
-    "static/js/main.e59bac60.js"
+    "static/js/main.d607522a.js"
   ]
 }

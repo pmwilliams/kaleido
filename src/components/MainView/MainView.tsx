@@ -95,10 +95,10 @@ function MainView() {
 
     drawGlowLine(ctx, hueRef.current, lastXAdj, lastYAdj, newXAdj, newYAdj)
 
-    for (let i = 1; i < 2; i++)
+    for (let i = 1; i < 6; i++)
     {
       ctx.save()
-      ctx.rotate(((2 * Math.PI) / 2) * i)
+      ctx.rotate(((2 * Math.PI) / 6) * i)
       
       drawGlowLine(ctx, hueRef.current, lastXAdj, lastYAdj, newXAdj, newYAdj)
 
@@ -124,7 +124,7 @@ function MainView() {
   }
 
   const tick = React.useCallback(() => {
-    hueRef.current = (hueRef.current + 0.1) % 360
+    hueRef.current = (hueRef.current + 0.3) % 360
     requestAnimationFrame(tick)
   }, [])
 
