@@ -1,4 +1,4 @@
-import React, { MouseEvent } from 'react';
+import React, { MouseEvent, TouchEvent } from 'react';
 
 import styles from './MainView.module.css'
 
@@ -45,7 +45,22 @@ function MainView() {
     stateRef.current.lastY = event.clientY
   }
 
+  const onTouchStart = (event: TouchEvent<HTMLCanvasElement>) => {
+    event.stopPropagation()
+    stateRef.current.isDrawing = true
+    stateRef.current.lastX = event.touches[0].clientX
+    stateRef.current.lastY = event.touches[0].clientY
+  }
+
   const onMouseMove = (event: MouseEvent<HTMLCanvasElement>) => {
+    move(event.clientX, event.clientY)
+  }
+
+  const onTouchMove = (event: TouchEvent<HTMLCanvasElement>) => {
+    move(event.touches[0].clientX, event.touches[0].clientY)
+  }
+
+  const move = (x: number, y: number) => {
     const state = stateRef.current
     if (!canvasRef.current || !state.isDrawing || !state.lastX || !state.lastY) {
       return
@@ -65,8 +80,8 @@ function MainView() {
   
     const lastXAdj = state.lastX - width / 2
     const lastYAdj = state.lastY - height / 2
-    const newXAdj = event.clientX - width / 2
-    const newYAdj = event.clientY - height / 2
+    const newXAdj = x - width / 2
+    const newYAdj = y - height / 2
 
     ctx.save()
     ctx.translate(width / 2, height / 2)
@@ -92,11 +107,17 @@ function MainView() {
     
       ctx.restore()
 
-    state.lastX = event.clientX
-    state.lastY = event.clientY
+    state.lastX = x
+    state.lastY = y
   }
 
   const onMouseUp = (event: MouseEvent<HTMLCanvasElement>) => {
+    stateRef.current.isDrawing = false
+    stateRef.current.lastX = undefined
+    stateRef.current.lastY = undefined
+  }
+
+  const onTouchEnd = (event: TouchEvent<HTMLCanvasElement>) => {
     stateRef.current.isDrawing = false
     stateRef.current.lastX = undefined
     stateRef.current.lastY = undefined
@@ -143,7 +164,10 @@ function MainView() {
           className={styles.Canvas}
           onMouseDown={onMouseDown}
           onMouseMove={onMouseMove}
-          onMouseUp={onMouseUp} 
+          onMouseUp={onMouseUp}
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
         />
     </div>
   )
