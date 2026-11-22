@@ -27,7 +27,7 @@ const drawGlowLine = (
     }
     ctx.lineWidth = GLOW_WIDTHS[i]
     ctx.moveTo(startX, startY)
-    ctx.lineTo(endX,endY)
+    ctx.lineTo(endX, endY)
     ctx.stroke()
   }
 }
@@ -37,6 +37,22 @@ function MainView() {
 
   const stateRef = React.useRef<DrawState>({ isDrawing: false })
   const hueRef = React.useRef<number>(0)
+
+  const onClear = () => {
+    const canvas = canvasRef.current
+
+    if (!canvas) {
+      return
+    }
+
+    const ctx = canvas.getContext('2d');
+
+    if (!ctx) {
+      return
+    }
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
 
   const onMouseDown = (event: MouseEvent<HTMLCanvasElement>) => {
     event.stopPropagation()
@@ -53,14 +69,14 @@ function MainView() {
   }
 
   const onMouseMove = (event: MouseEvent<HTMLCanvasElement>) => {
-    move(event.clientX, event.clientY)
+    draw(event.clientX, event.clientY)
   }
 
   const onTouchMove = (event: TouchEvent<HTMLCanvasElement>) => {
-    move(event.touches[0].clientX, event.touches[0].clientY)
+    draw(event.touches[0].clientX, event.touches[0].clientY)
   }
 
-  const move = (x: number, y: number) => {
+  const draw = (x: number, y: number) => {
     const state = stateRef.current
     if (!canvasRef.current || !state.isDrawing || !state.lastX || !state.lastY) {
       return
@@ -169,6 +185,16 @@ function MainView() {
           onTouchMove={onTouchMove}
           onTouchEnd={onTouchEnd}
         />
+        <div 
+          className={styles.Toolbar}>
+          <button 
+            className={styles.button}
+            onClick={onClear}>
+            <div 
+              className={styles.EraserSvg}>
+            </div>
+          </button>
+        </div>
     </div>
   )
 }

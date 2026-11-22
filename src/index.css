@@ -19,12 +19,5 @@ code {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
   min-height: 100dvh;
-}
-
-@media (orientation: landscape) {
-  .App {
-    flex-direction: row;
-  }
 }
